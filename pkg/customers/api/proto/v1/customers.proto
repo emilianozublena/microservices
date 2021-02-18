@@ -1,0 +1,43 @@
+syntax = "proto3";
+package customers;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "pkg/customers/api/proto/v1;customerspb";
+
+message Customer {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    google.protobuf.Timestamp created_at = 4;
+}
+
+message CreateCustomerRequest {
+    Customer customer = 1;
+}
+
+message CreateCustomerResponse {
+    Customer customer = 1;
+}
+
+message ReadCustomerRequest {
+    string customer_id = 1;
+}
+
+message ReadCustomerResponse {
+    Customer customer = 1;
+}
+
+message ListCustomersRequest {
+    
+}
+
+message ListCustomersResponse {
+    repeated Customer customer = 1;
+}
+
+service CustomersService {
+    rpc CreateCustomer(CreateCustomerRequest) returns (CreateCustomerResponse);
+    rpc ReadCustomer(ReadCustomerRequest) returns (ReadCustomerResponse);
+    rpc ListCustomers(ListCustomersRequest) returns (ListCustomersResponse);
+}
