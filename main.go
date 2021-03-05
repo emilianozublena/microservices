@@ -1,11 +1,7 @@
 package main
 
-import (
-	"errors"
-	"fmt"
-	"reflect"
-)
+import "github.com/emilianozublena/microservices/routes"
 
 func main() {
-	fmt.Println(reflect.TypeOf(errors.New("mock")).String())
+	routes.Init()
 }

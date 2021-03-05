@@ -16,3 +16,6 @@
 
 # All protobuff generated code :)
 *.pb.go
+
+# All cover.out files
+cover.out
