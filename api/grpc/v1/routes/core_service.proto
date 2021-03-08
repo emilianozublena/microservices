@@ -1,0 +1,61 @@
+syntax = "proto3";
+package routes;
+
+option go_package = "pkg/routes/api/grpc/v1;routesgrpc";
+
+message Route {
+    string id = 1;
+    string driver_id = 2;
+    string order_id = 3;
+    string customer_id = 4;
+    double lat = 5;
+    double lng = 6;
+    optional Solution solution = 7;
+}
+
+message Solution {
+    string status = 1;
+    float total_travel_time = 2;
+    map<string, Location> visits = 3;
+}
+
+message Location {
+    string location_id = 1;
+    string location_name = 2;
+}
+
+message Position {
+    double lat = 1;
+    double lng = 2;
+}
+
+message CreateRouteRequest {
+    Route route = 1;
+    Position current_position = 2;
+}
+
+message CreateRouteResponse {
+    Route route = 1;
+}
+
+message ReadRouteRequest {
+    string route_id = 1;
+}
+
+message ReadRouteResponse {
+    Route route = 1;
+}
+
+message GetRoutesByDriverRequest {
+    string driver_id = 1;
+}
+
+message GetRoutesByDriverResponse {
+    repeated Route route = 1;
+}
+
+service RoutesService {
+    rpc CreateRoute(CreateRouteRequest) returns (CreateRouteResponse);
+    rpc ReadRoute(ReadRouteRequest) returns (ReadRouteResponse);
+    rpc GetRoutesByDriver(GetRoutesByDriverRequest) returns (GetRoutesByDriverResponse);
+}
