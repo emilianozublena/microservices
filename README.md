@@ -83,7 +83,7 @@ Further definition of this microservice API can be found in [protobuf's folder](
 ## Getting Started
 
 You can either choose to build the go package or just simply run it by using the *go run* command. Choice is yours.
-Keep in mind that under /internal/client you have an example gRPC client built in Golang just for testing the service. The client is not tested and is not intended to be, as tipically the microservice wouldn't be holding a client inside of itself.
+Keep in mind that under /internal/client you have an example gRPC client built in Golang just for testing the service. The client is doesn't have any unit tests and it'll remain that way. This client is just for validating this PoC but shouldn't even exists on a typical service repository like this one.
 
 ### Prerequisites
 
