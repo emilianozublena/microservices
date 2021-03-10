@@ -113,7 +113,7 @@ go run main.go create
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPL-3.0 License. See [`LICENSE`](license-url) for more information.
+Distributed under the GPL-3.0 License. See [`LICENSE`](https://github.com/emilianozublena/microservices/blob/main/LICENSE) for more information.
 
 
 
