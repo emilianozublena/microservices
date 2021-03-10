@@ -1,3 +1,4 @@
+#Microservices
 <!-- PROJECT SHIELDS -->
 <!--
 *** I'm using markdown "reference style" links for readability.
@@ -66,6 +67,9 @@ This project was a mere excuse for me to understand topics surrounding golang (s
 
 There are A LOT of these examples, and this is just a humble attempt of my own, by no means this should be used in production, nor should be understood as *the best way to achieve a ms arch...*
 
+The implementation is quite simple, this is a routes microservices, which will be responsible for CRUD'ing routes that a given driver will attempt to access.
+Each route will belong to a driver, a customer and a given order. And the solution (aka which route should the driver take to deliver the order) will be served by Routific's API
+
 ### Built With
 
 * [Golang](https://golang.org/)
@@ -88,17 +92,20 @@ Follow installation for [Golang](https://golang.org/), [gRPC and protobuf](https
 ## Usage
 
 Start the server directly:
-```go run main.go
+```
+go run main.go
 ```
 
 Or either build it and run it
-```go build
+```
+go build
 ./microservices
 ```
 
 After server is running, you can play with your own client, or just use the one shipped here.
 The client will accept os.Args, in which you can tell the client what actions should it be taking
-```cd internal/client
+```
+cd internal/client
 go run main.go create
 ```
 
