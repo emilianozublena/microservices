@@ -70,6 +70,8 @@ There are A LOT of these examples, and this is just a humble attempt of my own, 
 The implementation is quite simple, this is a routes microservices, which will be responsible for CRUD'ing routes that a given driver will attempt to access.
 Each route will belong to a driver, a customer and a given order. And the solution (aka which route should the driver take to deliver the order) will be served by Routific's API
 
+Further definition of this microservice API can be found in [protobuf's folder](https://github.com/emilianozublena/microservices/blob/main/api/grpc/v1/routes/core_service.proto)
+
 ### Built With
 
 * [Golang](https://golang.org/)
