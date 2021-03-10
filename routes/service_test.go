@@ -370,6 +370,7 @@ func MockForRoutificService() (*Route, routific.CurrentRoute, routific.Destinati
 		Lng: 34.123,
 	}
 	destinationRoute := routific.DestinationRoute{
+		ID:  string(route.CustomerID) + string(route.DriverID) + string(route.OrderID),
 		Lat: route.Lat,
 		Lng: route.Lng,
 	}

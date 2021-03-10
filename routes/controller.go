@@ -30,6 +30,7 @@ func (controller *Controller) CreateRoute(ctx context.Context, req *routesgrpc.C
 		Lng:        req.GetRoute().GetLng(),
 	}
 	current := routific.CurrentRoute{
+		ID:  string(req.GetRoute().GetDriverId()),
 		Lat: req.GetCurrentPosition().GetLat(),
 		Lng: req.GetCurrentPosition().GetLng(),
 	}
@@ -80,10 +81,10 @@ func (controller *Controller) GetRoutesByDriver(ctx context.Context, req *routes
 // createGrpcRouteFromRoute will return the route grpc message after mapping it to the internal Route struct
 func createGrpcRouteFromRoute(r *Route) *routesgrpc.Route {
 	return &routesgrpc.Route{
-		Id:         r.GetId().String(),
-		DriverId:   string(r.DriverID),
-		CustomerId: string(r.CustomerID),
-		OrderId:    string(r.OrderID),
+		Id:         []byte(r.GetId()),
+		DriverId:   []byte(r.DriverID),
+		CustomerId: []byte(r.CustomerID),
+		OrderId:    []byte(r.OrderID),
 		Lat:        r.Lat,
 		Lng:        r.Lng,
 		Solution: &routesgrpc.Solution{
