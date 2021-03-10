@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -32,14 +33,14 @@ func main() {
 	grpcAddress := internal.GetEnv("GRPC_ADDR", "localhost:1435")
 	grpcClient, err := NewGRPCService(grpcAddress)
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	r := &routes.Route{
 		DriverID:   bson.NewObjectId(),
 		CustomerID: bson.NewObjectId(),
 		OrderID:    bson.NewObjectId(),
-		Lat:        34.567,
-		Lng:        -56.1234,
+		Lat:        49.2819229,
+		Lng:        -123.1211844,
 		Solution:   routific.VehicleRoutingResponse{},
 	}
 	routes := []routes.Route{}
@@ -53,10 +54,10 @@ func main() {
 		routes, err = grpcClient.GetRoutesByDriver(bson.NewObjectId())
 	}
 	if err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 	if mErr != nil {
-		fmt.Println(mErr)
+		log.Fatal(mErr)
 	}
 	fmt.Println(r)
 	fmt.Println(routes)
@@ -126,10 +127,12 @@ func createRouteRequest(r *routes.Route) (*routesgrpc.Route, *routesgrpc.Positio
 		DriverId:   []byte(r.DriverID),
 		CustomerId: []byte(r.CustomerID),
 		OrderId:    []byte(r.OrderID),
+		Lat:        r.Lat,
+		Lng:        r.Lng,
 	}
 	position := &routesgrpc.Position{
-		Lat: r.Lat,
-		Lng: r.Lng,
+		Lat: 49.2553636,
+		Lng: -123.0873365,
 	}
 
 	return route, position

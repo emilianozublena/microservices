@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
+	"log"
 	"net/http"
 
 	"gopkg.in/mgo.v2/bson"
@@ -26,9 +27,9 @@ type Routific struct {
 
 //Position represents any given position as lat+lng
 type Position struct {
-	ID  string
-	Lat float64
-	Lng float64
+	ID  string  `json:"id"`
+	Lat float64 `json:"lat"`
+	Lng float64 `json:"lng"`
 }
 
 // CurrentRoute represents the current location as lat+lng for a given driver
@@ -97,20 +98,22 @@ func (r *Routific) GetVehicleRoute(driverID bson.ObjectId, currentRoute CurrentR
 	}
 
 	httpRequest, _ := http.NewRequest("POST", VehicleRoutingAPIUrl, bytes.NewReader(jsonBytes))
+	httpRequest.Header.Set("Content-Type", "application/json")
+	httpRequest.Header.Set("Authorization", "bearer "+accessToken)
 	resp, err := r.Client.Do(httpRequest)
-	//resp, err := http.DefaultClient.Do(httpRequest)
 	if err != nil {
 		return VehicleRoutingResponse{}, err
 	}
 	defer resp.Body.Close()
-	body, err := io.ReadAll(resp.Body)
-
 	vehicleRoutingResponse := &VehicleRoutingResponse{}
-
-	err = json.Unmarshal(body, vehicleRoutingResponse)
-
-	if err != nil {
-		return VehicleRoutingResponse{}, err
+	if resp.StatusCode == http.StatusOK {
+		body, err := io.ReadAll(resp.Body)
+		err = json.Unmarshal(body, vehicleRoutingResponse)
+		if err != nil {
+			return VehicleRoutingResponse{}, err
+		}
+	} else {
+		log.Fatal("Error while calling routific API with code ", resp.StatusCode, "and body ", resp.Body)
 	}
 
 	return *vehicleRoutingResponse, nil

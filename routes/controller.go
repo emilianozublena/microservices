@@ -30,6 +30,7 @@ func (controller *Controller) CreateRoute(ctx context.Context, req *routesgrpc.C
 		Lng:        req.GetRoute().GetLng(),
 	}
 	current := routific.CurrentRoute{
+		ID:  string(req.GetRoute().GetDriverId()),
 		Lat: req.GetCurrentPosition().GetLat(),
 		Lng: req.GetCurrentPosition().GetLng(),
 	}

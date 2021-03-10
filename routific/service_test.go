@@ -73,6 +73,7 @@ func TestGetVehicleRoute(t *testing.T) {
 	httpResponse := &http.Response{
 		Body: io.NopCloser(bytes.NewBufferString(string(responseBytes))),
 	}
+	httpResponse.StatusCode = 200
 	httpMock.On("Do", mock.Anything).Return(httpResponse, nil).Once()
 
 	//When we try to get the route from Routific's Engine API

@@ -50,7 +50,6 @@ func NewService(conn database.Bongo, routificAPI routific.Service) *Service {
 func (s *Service) UpdateOrCreateRoute(r *Route) []error {
 	var errors []error
 	err := s.Save("routes", r)
-
 	if vErr, ok := err.(*bongo.ValidationError); ok {
 		errors = vErr.Errors
 	} else if err != nil {
@@ -86,6 +85,7 @@ func (s *Service) GetRoutesByDriver(driverID bson.ObjectId) ([]Route, error) {
 // CreateInRoutific will send a HTTP request to Routific API's which will return a valid solution for that route+driver
 func (s *Service) CreateInRoutific(r *Route, current routific.CurrentRoute) error {
 	destination := routific.DestinationRoute{
+		ID:  string(r.CustomerID) + string(r.DriverID) + string(r.OrderID),
 		Lat: r.Lat,
 		Lng: r.Lng,
 	}
