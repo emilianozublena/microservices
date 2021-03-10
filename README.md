@@ -91,8 +91,14 @@ Follow installation for [Golang](https://golang.org/), [gRPC and protobuf](https
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+You need to first create all the code for gRPC. If you're unfamiliar with how `protoc` works you should start [here](https://developers.google.com/protocol-buffers/docs/tutorials). 
 
-Start the server directly:
+Otherwise there's a bash script for you already in this same repository:
+```
+./internal/scripts/protobgenerate.sh
+```
+
+After code has been generated, start the server directly:
 ```
 go run main.go
 ```
