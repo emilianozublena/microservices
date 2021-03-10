@@ -107,8 +107,14 @@ After server is running, you can play with your own client, or just use the one 
 The client will accept os.Args, in which you can tell the client what actions should it be taking
 ```
 cd internal/client
-go run main.go create
+go run main.go {command-name}
 ```
+Existing command names are:
+- create
+- read
+- byDriver
+
+*Keep in mind that the arguments are hard-coded in the client itself*
 
 <!-- LICENSE -->
 ## License
