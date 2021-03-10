@@ -3,7 +3,6 @@
 package routific
 
 import (
-	io "io"
 	http "net/http"
 
 	mock "github.com/stretchr/testify/mock"
@@ -30,29 +29,6 @@ func (_m *MockHTTPClient) Do(req *http.Request) (*http.Response, error) {
 	var r1 error
 	if rf, ok := ret.Get(1).(func(*http.Request) error); ok {
 		r1 = rf(req)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
-// NewRequest provides a mock function with given fields: method, url, body
-func (_m *MockHTTPClient) NewRequest(method string, url string, body io.Reader) (*http.Request, error) {
-	ret := _m.Called(method, url, body)
-
-	var r0 *http.Request
-	if rf, ok := ret.Get(0).(func(string, string, io.Reader) *http.Request); ok {
-		r0 = rf(method, url, body)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*http.Request)
-		}
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(string, string, io.Reader) error); ok {
-		r1 = rf(method, url, body)
 	} else {
 		r1 = ret.Error(1)
 	}

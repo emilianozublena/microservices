@@ -16,7 +16,7 @@ import (
 func TestNewService(t *testing.T) {
 	//Given there's a valid NewService func
 	//When we execute it
-	service := NewService(&Client{})
+	service := NewService(Client)
 	//Then we assert we got a valid Service interface TYPE
 	serviceTypeAsString := reflect.TypeOf(service).String()
 	routificTypeAsString := reflect.TypeOf(&Routific{}).String()
@@ -31,12 +31,12 @@ func TestNewService(t *testing.T) {
 
 func BenchmarkNewService(t *testing.B) {
 	for i := 0; i < t.N; i++ {
-		NewService(&Client{})
+		NewService(Client)
 	}
 }
 
 func ExampleNewService() {
-	service := NewService(&Client{})
+	service := NewService(Client)
 	fmt.Printf("%T", service)
 	// Output: *routific.Routific
 }
@@ -53,10 +53,6 @@ func TestGetVehicleRoute(t *testing.T) {
 	destinationRoute := DestinationRoute{
 		Lat: 45.678,
 		Lng: 34.123,
-	}
-	requestBody := VehicleRoutingRequest{
-		Visits: make(map[string]OrderRequest),
-		Fleet:  make(map[string]VehicleRequest),
 	}
 	responseBody := VehicleRoutingResponse{
 		Status:          "success",
@@ -77,11 +73,6 @@ func TestGetVehicleRoute(t *testing.T) {
 	httpResponse := &http.Response{
 		Body: io.NopCloser(bytes.NewBufferString(string(responseBytes))),
 	}
-	jsonBytes, _ := json.Marshal(requestBody)
-	httpRequest, _ := http.NewRequest("POST", VehicleRoutingAPIUrl, bytes.NewReader(jsonBytes))
-	httpRequest.Header.Set("Content-Type", "application/json")
-	httpRequest.Header.Set("Authorization", "Bearer {accessToken}")
-	httpMock.On("NewRequest", mock.AnythingOfType("string"), mock.AnythingOfType("string"), mock.Anything).Return(httpRequest, nil).Once()
 	httpMock.On("Do", mock.Anything).Return(httpResponse, nil).Once()
 
 	//When we try to get the route from Routific's Engine API

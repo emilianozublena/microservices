@@ -15,9 +15,9 @@ import (
 // Init will initialize the gRPC server for this service
 func Init() {
 	// configure our core service
-	grpcAddress := internal.GetEnv("GRPC_ADDR", "localhost:9999")
+	grpcAddress := internal.GetEnv("GRPC_ADDR", "localhost:1435")
 	conn := database.Connect()
-	routificAPI := routific.NewService(&routific.Client{})
+	routificAPI := routific.NewService(routific.Client)
 	routesService := NewService(conn, routificAPI)
 	// configure our gRPC service controller
 	routesController := NewRoutesController(routesService)

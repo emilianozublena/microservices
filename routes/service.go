@@ -15,7 +15,7 @@ var ValidationError error
 
 // RouteService defines the interface for the driver service
 type RouteService interface {
-	UpdateOrCreateRoute(d *Route) []error
+	UpdateOrCreateRoute(r *Route) []error
 	ReadRoute(ID bson.ObjectId, r *Route) error
 	GetRoutesByDriver(driverID bson.ObjectId) ([]Route, error)
 	CreateInRoutific(r *Route, current routific.CurrentRoute) error

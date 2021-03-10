@@ -4,10 +4,10 @@ package routes;
 option go_package = "pkg/routes/api/grpc/v1;routesgrpc";
 
 message Route {
-    string id = 1;
-    string driver_id = 2;
-    string order_id = 3;
-    string customer_id = 4;
+    bytes id = 1;
+    bytes driver_id = 2;
+    bytes order_id = 3;
+    bytes customer_id = 4;
     double lat = 5;
     double lng = 6;
     optional Solution solution = 7;
@@ -39,7 +39,7 @@ message CreateRouteResponse {
 }
 
 message ReadRouteRequest {
-    string route_id = 1;
+    bytes route_id = 1;
 }
 
 message ReadRouteResponse {
@@ -47,7 +47,7 @@ message ReadRouteResponse {
 }
 
 message GetRoutesByDriverRequest {
-    string driver_id = 1;
+    bytes driver_id = 1;
 }
 
 message GetRoutesByDriverResponse {

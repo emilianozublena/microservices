@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"io"
+	"net/http"
 
 	"gopkg.in/mgo.v2/bson"
 )
@@ -95,13 +96,13 @@ func (r *Routific) GetVehicleRoute(driverID bson.ObjectId, currentRoute CurrentR
 		return VehicleRoutingResponse{}, err
 	}
 
-	httpRequest, _ := r.Client.NewRequest("POST", VehicleRoutingAPIUrl, bytes.NewReader(jsonBytes))
-
+	httpRequest, _ := http.NewRequest("POST", VehicleRoutingAPIUrl, bytes.NewReader(jsonBytes))
 	resp, err := r.Client.Do(httpRequest)
-	defer resp.Body.Close()
+	//resp, err := http.DefaultClient.Do(httpRequest)
 	if err != nil {
 		return VehicleRoutingResponse{}, err
 	}
+	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 
 	vehicleRoutingResponse := &VehicleRoutingResponse{}
